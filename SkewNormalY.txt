@@ -1,0 +1,49 @@
+model {
+ 	beta1 ~ dnorm(0, 0.01)
+	beta2 ~ dnorm(0, 0.01)
+ 	sigma ~ dnorm(0, 0.01)I(0,)
+ 	sigmau ~ dnorm(0, 0.01)I(0,)
+ 	rho ~ dunif(-1, 1)
+ 	lambda ~ dnorm(0, 0.01)
+	sigmav ~ dnorm(0, 0.01)I(0,)
+	tau <- 1/sigma
+	tauu <-1/sigmau
+	tauv <- 1/sigmav
+
+ 	for( i in 1:71 ) {
+ 	v[i] ~ dnorm(0, pow(sigmav, 2) )
+	
+ 	for( k in 1:48 ) {
+ 	lambdai[k, i] <- lambda/(sqrt(kiek2[k, i]))
+ 	delta[k, i] <- lambdai[k, i] /( sqrt( 1 + pow(lambdai[k, i], 2) ))
+ 	}
+
+ 	for(f in 1:n[i]) {
+ 	u[1, f, i] ~ dnorm(0, pow(sigmau, 2) ) 
+ 	for( m in 2:48 ) { 
+ 	eps[m, f, i] ~ dnorm( 0, pow(sigma, 2) )
+ 	u[m, f, i] <- rho*u[m-1, f, i] + eps[m, f, i] 
+ 	}
+
+ 	for(t in 1:48) {
+ 	W[t, f, i] ~ dnorm(0, 1)I(0, )
+ 
+ 	muy[t, f, i] <- beta1*z1[t, f, i] + beta2*z2[t, f, i] + v[i] + u[t, f, i]  +
+			delta[t, i]*sqrt(kova[f, i])*W[t, f, i]
+ 
+ 	tauy[t, f, i] <- 1/(kova[f, i]*(1 - pow(delta[t, i], 2) ))
+ 	y[t, f, i] ~ dnorm(muy[t, f, i], tauy[t, f, i])
+        
+	 }
+ 	 }
+	 }
+
+	for (i in 1:l) {
+	for (f in (n[ns2[i]]+1):10){
+	for (t in 1:48){
+	muy[t, f, ns2[i]] <- 0
+	tauy[t, f, ns2[i]] <- 0 
+	}
+	}
+	}
+}

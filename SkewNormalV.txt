@@ -1,0 +1,46 @@
+model {
+	beta1 ~ dnorm(0, 0.01)
+	beta2 ~ dnorm(0, 0.01)
+	sigma ~ dnorm(0, 0.1)I(0,)
+	sigmau ~ dnorm(0, 0.01)I(0,)
+	rho ~ dunif(-1, 1)
+	lambda ~ dnorm(0, 0.04)
+	tau <- 1/sigma
+	tauu <- 1/sigmau
+
+	for ( i in 1:71 ) {
+	W[i] ~ dnorm(0, 1)I(0, )
+	
+	lambdai[i] <- lambda/sqrt(n[i])
+	delta[i] <- lambdai[i]/sqrt( 1 + pow(lambdai[i], 2) )
+	sigmav[i] ~ dnorm(0, 0.01)I(0,)
+	muv[i] <- sigmav[i]*delta[i]*W[i]
+	sdv[i] <-  1/(pow(sigmav[i], 2)*( 1 - pow(delta[i], 2)) ) 
+	v[i] ~ dnorm( muv[i], sdv[i] )
+	
+	for ( f in 1:n[i] ) {
+	u[1, f, i] ~ dnorm(0, pow(sigmau, 2) ) 
+	
+	for( m in 2:48 ) { 
+	eps[m, f, i] ~ dnorm( 0, pow(sigma, 2) )
+	u[m, f, i] <- rho*u[m-1, f, i] + eps[m, f, i] 
+	}
+	
+	for ( t in 1:48 ) {
+	mu[t, f, i] <- beta1*z1[t, f, i] + beta2*z2[t, f, i] + v[i] + u[t, f, i]
+	y[t, f, i] ~ dnorm( mu[t, f, i], 1/kova[f, i] )
+	}
+	}
+        }
+
+	for (i in 1:l) {
+	for (f in (n[ns2[i]]+1):10){
+	for (t in 1:48){
+	mu[t, f, ns2[i]] <- 0 
+	}
+	}
+	}	
+}
+	
+
+	
