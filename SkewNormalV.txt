@@ -4,7 +4,7 @@ model {
 	sigma ~ dnorm(0, 0.1)I(0,)
 	sigmau ~ dnorm(0, 0.01)I(0,)
 	rho ~ dunif(-1, 1)
-	lambda ~ dnorm(0, 0.04)
+	lambda ~ dnorm(0, 0.01)
 	tau <- 1/sigma
 	tauu <- 1/sigmau
 
