@@ -8,11 +8,12 @@ library(ggmcmc)
 library(forecast)
 library(abind)
 library(xtable)
+library(boa)
   
 data <- read.csv2("duomenys.csv", header = TRUE, sep = ";", dec = ".") 
 attach(data)
 
-#----------------------------------Duomen¯ nuskaitymas-------------------------------------------
+#----------------------------------Duomen≈≥ nuskaitymas-------------------------------------------
 
 y1 <- c(y10_1, y10_2, y10_3, y10_4, y10_5, y10_6, y10_7, y10_8, y10_9, y10_10, y10_11, y10_12,
        y11_1, y11_2, y11_3, y11_4, y11_5, y11_6, y11_7, y11_8, y11_9, y11_10, y11_11, y11_12,
@@ -64,7 +65,7 @@ dataG$logz <- log(dataG$z)
 is.na(dataG) <- sapply(dataG, is.infinite) 
 dataGo <- na.omit(dataG)
 
-#-------------------------------IsskirËi¯ tyrimas---------------------------------------
+#-------------------------------Isskirƒçi≈≥ tyrimas---------------------------------------
 
 veikla45 <- dataGo[dataGo$veikla %in% sort(unique(dataGo$veikla))[1:6],]
 veikla46 <- dataGo[dataGo$veikla %in% sort(unique(dataGo$veikla))[7:54],]
@@ -213,25 +214,25 @@ P <- data.frame(Parameter = c("beta1", "beta2", "tauv", "tau", "tauu", "rho"),
   Label = c("Beta1", "Beta2", "Sigmav", "Sigma", "Sigmau", "Rho"))
 gg11 <- ggs(mcmc11, par_labels = P) 
 
-# ggh1 <- ggs_histogram(gg11) + theme_bw() + xlab("ReikmÎ") + ylab("Da˛nis")
-ggd1 <- ggs_density(gg11) + theme_bw() + xlab("ReikmÎ") + ylab("Da˛nis") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
-ggtr1 <- ggs_traceplot(gg11) + theme_bw() + xlab("Iteracija") + ylab("ReikmÎ") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
+# ggh1 <- ggs_histogram(gg11) + theme_bw() + xlab("Reik≈°mƒó") + ylab("Da≈ænis")
+ggd1 <- ggs_density(gg11) + theme_bw() + xlab("Reik≈°mƒó") + ylab("Da≈ænis") +
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")
+ggtr1 <- ggs_traceplot(gg11) + theme_bw() + xlab("Iteracija") + ylab("Reik≈°mƒó") +
+  scale_fill_discrete("Grandin√´") + scale_colour_discrete("Grandinƒó")
 ggr1 <- ggs_running(gg11) + theme_bw() + xlab("Iteracija") + ylab("Vidurkis") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ") 
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó") 
 # ggs_compare_partial(gg11)
 gga1 <- ggs_autocorrelation(gg11) + theme_bw() + xlab("Ankstinys") + ylab("Autokoreliacija") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ") 
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó") 
 ggcor1 <- ggs_crosscorrelation(gg11, absolute_scale = TRUE) + theme_bw() + 
   theme(legend.title = element_blank())
 # ggs_Rhat(gg11) 
-gggew1 <- ggs_geweke(gg11) + theme_bw() + xlab("z-reikmÎ") + ylab("Parametras") +
-  labs(title = "Geweke diagnostika") + scale_fill_discrete("GrandinÎ") + 
-  scale_colour_discrete("GrandinÎ") 
+gggew1 <- ggs_geweke(gg11) + theme_bw() + xlab("z-reik≈°mƒó") + ylab("Parametras") +
+  labs(title = "Geweke diagnostika") + scale_fill_discrete("Grandinƒó") + 
+  scale_colour_discrete("Grandinƒó") 
 # gghpd1 <- ggs_caterpillar(gg11, horizontal = FALSE) + theme_bw() + ylab("Parametras")
 
-#-----------------------------------PrognozÎ----------------------------------------------
+#-----------------------------------Prognozƒó----------------------------------------------
 
 progn1 <- outj13$BUGSoutput$sims.list$y 
 mr1 <- array(c(progn1), c(7500, 71, 10))
@@ -268,7 +269,7 @@ dataProgn1 <- data.frame(numeris = ordered$numeris,
 
 dataProgn1$skirtumas <- dataProgn1$logy - dataProgn1$prognoze
 
-#--------------------Asimetrini¯ Normali¯j¯ pajam¯ modelis----------------------------
+#--------------------Asimetrini≈≥ Normali≈≥j≈≥ pajam≈≥ modelis----------------------------
 
 deita2 <- list(y = ybugs, z1 = w1, z2 = w2, n = as.numeric(ns), ns2 = ns2, l = length(ns2),
   kova = ko, kiek2 = kiek2)
@@ -323,25 +324,25 @@ P2 <- data.frame(Parameter = c("beta1", "beta2", "tauv", "tau", "tauu", "rho", "
 gg20 <- ggs(mcmc20, par_labels = P2)
 
 # ggmcmc(gg20)
-# ggh2 <- ggs_histogram(gg20) + theme_bw() + xlab("ReikmÎ") + ylab("Da˛nis")
-ggd2 <- ggs_density(gg20) + theme_bw() + xlab("ReikmÎ") + ylab("Da˛nis") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
-ggtr2 <- ggs_traceplot(gg20) + theme_bw() + xlab("Iteracija") + ylab("ReikmÎ") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
+# ggh2 <- ggs_histogram(gg20) + theme_bw() + xlab("Reik≈°mƒó") + ylab("Da≈ænis")
+ggd2 <- ggs_density(gg20) + theme_bw() + xlab("Reik≈°mƒó") + ylab("Da≈ænis") +
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")
+ggtr2 <- ggs_traceplot(gg20) + theme_bw() + xlab("Iteracija") + ylab("Reik≈°mƒó") +
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")
 ggr2 <- ggs_running(gg20) + theme_bw() + xlab("Iteracija") + ylab("Vidurkis") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")  
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")  
 # ggs_compare_partial(gg31)
 gga2 <- ggs_autocorrelation(gg20) + theme_bw() + xlab("Ankstinys") + ylab("Autokoreliacija") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ") 
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó") 
 ggcor2 <- ggs_crosscorrelation(gg20, absolute_scale = TRUE) + theme_bw() + 
   theme(legend.title = element_blank()) 
 # ggs_Rhat(gg20) 
-gggew2 <- ggs_geweke(gg20) + theme_bw() + xlab("z-reikmÎ") + ylab("Parametras") +
-  labs(title = "Geweke diagnostika") + scale_fill_discrete("GrandinÎ") + 
-  scale_colour_discrete("GrandinÎ") 
+gggew2 <- ggs_geweke(gg20) + theme_bw() + xlab("z-reik≈°mƒó") + ylab("Parametras") +
+  labs(title = "Geweke diagnostika") + scale_fill_discrete("Grandinƒó") + 
+  scale_colour_discrete("Grandinƒó") 
 gghpd2 <- ggs_caterpillar(gg20, horizontal = FALSE) + theme_bw() + ylab("Parametras")
 
-#-----------------------------------PrognozÎ----------------------------------------------
+#-----------------------------------Prognozƒó----------------------------------------------
 
 progn2 <- outj20y$BUGSoutput$sims.list$y 
 mr2 <- array(c(progn2), c(7500, 71, 10))
@@ -369,7 +370,7 @@ dataProgn2 <- data.frame(numeris = ordered$numeris,
 
 dataProgn2$skirtumas <- dataProgn2$logy - dataProgn2$prognoze
 
-#--------------------Asimetrini¯ Normali¯j¯ atsitiktini¯ efekt¯ modelis------------------------
+#--------------------Asimetrini≈≥ Normali≈≥j≈≥ atsitiktini≈≥ efekt≈≥ modelis------------------------
 
 deita3 <- list(y = ybugs, z1 = w1, z2 = w2, n = as.numeric(ns), ns2 = ns2, l = length(ns2),
   kova = ko)
@@ -461,13 +462,12 @@ ggplot(data = svdf2, aes(x = indeksas, y = rhat)) +
 densv <- data.frame(sigv = as.vector(outj30y$BUGSoutput$sims.list$sigmav),
   veikla = factor(sort(rep(1:71, 7500))))
 ggplot(densv, aes(x = sigv, fill = veikla)) + geom_density(alpha = .3) + theme_bw() +
-  ylab("Tankis") + xlab("ReikmÎ") + scale_x_continuous(limits = c(0, 10)) + 
+  ylab("Tankis") + xlab("Reik≈°mƒó") + scale_x_continuous(limits = c(0, 10)) + 
   theme(legend.position = "none")  
 
 outj31.mcmc <- as.mcmc(outj32y) 
 param31 <- c("beta1", "beta2", "tau", "tauu", "rho", "lambda")
-mcmc31 <-  as.mcmc(list(outj31.mcmc[[1]][, param31], outj31.mcmc[[2]][,param31], 
-  outj31.mcmc[[3]][,param31]))
+mcmc31 <-  as.mcmc(list(outj31.mcmc[[1]][, param31], outj31.mcmc[[2]][,param31], outj31.mcmc[[3]][,param31]))
 gelman.plot(mcmc31) 
 geweke.plot(mcmc31)
 # raftery.diag(mcmc31) 
@@ -482,9 +482,9 @@ heidel <- heidel.diag(mcmc32)
 heiddf <- data.frame(pvalue1 = heidel[[1]][, 3], pvalue2 = heidel[[2]][, 3], 
   pvalue3 = heidel[[3]][, 3], veikla = unique(ordered$veikla), indeksas = 1:71)
 plotdf <- data.frame(x = heiddf$indeksas, y = unlist(heiddf[, 1:3]), veikla = heiddf$veikla,
-  GrandinÎ = factor(rep(1:3, each = nrow(heiddf))))
-ggplot(data = plotdf, aes(x = x, y = y, color = GrandinÎ)) +
-  geom_line() + xlab("Veikla") + ylab("p-reikmÎ") + theme_bw() + 
+  Grandinƒó = factor(rep(1:3, each = nrow(heiddf))))
+ggplot(data = plotdf, aes(x = x, y = y, color = Grandinƒó)) +
+  geom_line() + xlab("Veikla") + ylab("p-reik≈°mƒó") + theme_bw() + 
   geom_hline(aes(yintercept = 0.05)) +
   scale_x_continuous(breaks = c(1:71), labels = c(as.character(heiddf$veikla))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
@@ -493,25 +493,25 @@ P3 <- data.frame(Parameter = c("beta1", "beta2", "tau", "tauu", "rho", "lambda")
   Label = c("Beta1", "Beta2", "Sigma", "Sigmau", "Rho", "Lambda"))
 gg31 <- ggs(mcmc31, par_labels = P3)
 # ggmcmc(gg31)
-# ggh2 <- ggs_histogram(gg31) + theme_bw() + xlab("ReikmÎ") + ylab("Da˛nis")
-ggd3 <- ggs_density(gg31) + theme_bw() + xlab("ReikmÎ") + ylab("Da˛nis") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
-ggtr3 <- ggs_traceplot(gg31) + theme_bw() + xlab("Iteracija") + ylab("ReikmÎ") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
+# ggh2 <- ggs_histogram(gg31) + theme_bw() + xlab("Reik≈°mƒó") + ylab("Da≈ænis")
+ggd3 <- ggs_density(gg31) + theme_bw() + xlab("Reik≈°mƒó") + ylab("Da≈ænis") +
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")
+ggtr3 <- ggs_traceplot(gg31) + theme_bw() + xlab("Iteracija") + ylab("Reik≈°mƒó") +
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")
 ggr3 <- ggs_running(gg31) + theme_bw() + xlab("Iteracija") + ylab("Vidurkis") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ")
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó")
 # ggs_compare_partial(gg31)
 gga3 <- ggs_autocorrelation(gg31) + theme_bw() + xlab("Ankstinys") + ylab("Autokoreliacija") +
-  scale_fill_discrete("GrandinÎ") + scale_colour_discrete("GrandinÎ") 
+  scale_fill_discrete("Grandinƒó") + scale_colour_discrete("Grandinƒó") 
 ggcor3 <- ggs_crosscorrelation(gg31, absolute_scale = TRUE) + theme_bw() + 
   theme(legend.title = element_blank())
 # ggs_Rhat(gg31) 
-gggew3 <- ggs_geweke(gg31) + theme_bw() + xlab("z-reikmÎ") + ylab("Parametras")  +
-  labs(title = "Geweke diagnostika") + scale_fill_discrete("GrandinÎ") + 
-  scale_colour_discrete("GrandinÎ") 
+gggew3 <- ggs_geweke(gg31) + theme_bw() + xlab("z-reik≈°mƒó") + ylab("Parametras")  +
+  labs(title = "Geweke diagnostika") + scale_fill_discrete("Grandinƒó") + 
+  scale_colour_discrete("Grandinƒó") 
 # gghpd3 <- ggs_caterpillar(gg21, horizontal = FALSE) + theme_bw() + ylab("Parametras")
 
-#-----------------------------------PrognozÎ----------------------------------------------
+#-----------------------------------Prognozƒó----------------------------------------------
 
 progn3 <- outj32y$BUGSoutput$sims.list$y 
 mr3 <- array(c(progn3), c(7500, 71, 10))
@@ -540,37 +540,43 @@ dataProgn3 <- data.frame(numeris = ordered$numeris,
 
 dataProgn3$skirtumas <- dataProgn3$logy - dataProgn3$prognoze
 
-#---------------------------Vis¯ modeli¯ prognozi¯ palyginimas------------------------------------------
+#---------------------------Vis≈≥ modeli≈≥ prognozi≈≥ palyginimas------------------------------------------
 
 accuracy(dataProgn1$logy, dataProgn1$prognoze)
 accuracy(dataProgn2$logy, dataProgn2$prognoze)
 accuracy(dataProgn3$logy, dataProgn3$prognoze)
 
+dfsk <- data.frame(sk = exp(dataProgn3$prognoze) - exp(dataProgn1$prognoze),
+  index = 1:171)
+ggplot(dfsk, aes(x = index, y = sk)) + geom_line() + theme_bw() + xlab("Indeksas") + 
+  ylab("Skirtumas") + 
+  geom_hline(aes(yintercept = 0), linetype = "dashed")
+  
 prodf <- data.frame(prognoze = c(dataProgn1$prognoze, dataProgn2$prognoze, dataProgn3$prognoze),
   logy = rep(dataProgn1$logy, 3), Modelis = factor(c(rep(1, 171), rep(2, 171), rep(3, 171))))
 ggplot(data = prodf, aes(x = prognoze, y = logy, color = Modelis)) + geom_point(size = 2.3) + 
-  xlab("Tikrosios reikmÎ s") + ylab("Prognozuotos reikmÎ s") + theme_bw() + 
+  xlab("Tikrosios reik≈°mƒó s") + ylab("Prognozuotos reik≈°mƒó s") + theme_bw() + 
   geom_abline(intercept = 0, slope = 1, colour = "#666666") 
 
 densdf <- data.frame(dens = c(dataProgn1$prognoze, dataProgn2$prognoze, dataProgn3$prognoze, 
   dataProgn1$logy), kas = factor(c(rep("1 modelis", 171), rep("2 modelis", 171), 
     rep("3 modelis", 171), rep("Tikrosios", 171))))
 ggplot(densdf, aes(x = dens, fill = kas)) + geom_density(alpha=.3) + theme_bw() +
-  ylab("Tankis") + xlab("ReikmÎ")  + 
+  ylab("Tankis") + xlab("Reik≈°mƒó")  + 
   theme(legend.title = element_blank()) 
 
 pakldf <- data.frame(dens = c(dataProgn1$skirtumas, dataProgn2$skirtumas, dataProgn3$skirtumas), 
   kas = factor(c(rep("1 modelis", 171), rep("2 modelis", 171), 
     rep("3 modelis", 171))))
 ggplot(pakldf, aes(x = dens, fill = kas)) + geom_density(alpha=.3) + theme_bw() +
-  ylab("Tankis") + xlab("ReikmÎ")  + 
+  ylab("Tankis") + xlab("Reik≈°mƒó")  + 
   theme(legend.title = element_blank())
 
 paklvsprdf <- data.frame(skirt = pakldf$dens, 
   progn = c(dataProgn1$prognoze, dataProgn2$prognoze, dataProgn3$prognoze), 
   Modelis = factor(c(rep(1, 171), rep(2, 171), rep(3, 171))))
 ggplot(data = paklvsprdf, aes(x = progn, y = skirt, color = Modelis)) + geom_point(size = 2.3) + 
-  xlab("PrognozÎ") + ylab("PrognozÎ s paklaida") + theme_bw() + geom_hline(aes(intercept = 0), 
+  xlab("Prognozƒó") + ylab("Prognozƒó s paklaida") + theme_bw() + geom_hline(aes(intercept = 0), 
     color = "#666666", size = 1) 
 
 ynames <- c("y[48,1,10]", "y[48,1,11]", "y[48,1,12]", "y[48,1,13]", "y[48,1,14]", "y[48,1,15]",
@@ -618,7 +624,7 @@ for(i in 1:171){
 sddf <- data.frame(sd = c(sdpr2, sdpr3), Modelis = c(rep("2 modelis", 171), rep("3 modelis", 171)),
   index = rep(1:171, 2))
 ggplot(sddf, aes(x = index, y = sd, colour = Modelis)) + geom_line() + theme_bw() + 
-  ylab("PrognozÎ s dispersija") + xlab("Indeksas")  
+  ylab("Prognozƒó s dispersija") + xlab("Indeksas")  
 
 #---------------------------------HPD palyginimas-----------------------------------------
 
@@ -670,10 +676,10 @@ mcmc3y <- as.mcmc(list(outj30.mcmc[[1]][, ynames], outj30.mcmc[[2]][,ynames],
   outj30.mcmc[[3]][, ynames]))
 
 ggs_caterpillar(list("2 modelis" = ggs(mcmc2y), "3 modelis" = ggs(mcmc3y)), horizontal = F) + 
-  theme_bw() + ylab("PrognozÎ") +
+  theme_bw() + ylab("Prognozƒó") +
   theme(axis.text.x = element_blank(), axis.ticks = element_blank())
 
-#-------------------------3 modelio su 1 palyginimas, kur asimetrija did˛iausia-------------------
+#-------------------------3 modelio su 1 palyginimas, kur asimetrija did≈æiausia-------------------
 
 lambdai <- rep(0, 71)
 for( i in 1:71 ){
@@ -963,7 +969,7 @@ sd(vienas10[vienas22!=0])
 sd(trys10[trys23!=0])
 sd(vienas10[vienas23!=0])
 
-#------------------Generuotos pajamos pagal 3 model·--------------------------------------
+#------------------------------------------Generuotos pajamos pagal 3 modelƒØ--------------------------------------------------
 
 beta1 <- 0.9686916
 beta2 <- 0.01796294
@@ -999,9 +1005,6 @@ for ( i in 1:71 ) {
   }
   }
   }	
-range(pajnew[pajnew != 0])
-range(y13[y13 != 0])
-plot(pajnew[pajnew != 0], type = "l")
 
 #-----------------------------Modeliai su sugeneruotais duomenimis---------------------------
 
@@ -1032,8 +1035,6 @@ sd(new1$BUGSoutput$sims.list$tau)
 summary(new1$BUGSoutput$sims.list$tauu)
 sd(new1$BUGSoutput$sims.list$tauu)
 
-new1$BUGSoutput$last.value
-
 dei2 <- list(y = pajbugs, z1 = w1, z2 = w2, n = as.numeric(ns), ns2 = ns2, l = length(ns2),
   kova = ko, kiek2 = kiek2)
 
@@ -1041,8 +1042,8 @@ system.time({new2 <- jags(data = dei2, inits = inits20, parameters.to.save = par
   model.file = "C:/Users/Artura/Desktop/SkewNormalY.txt", 
   n.chains = 3, n.iter = 30000, n.thin = 10, DIC = TRUE) 
 })/60
-
-new2$BUGSoutput$last.value
+print(new2)
+geweke.diag(new2)
 
 dei3 <- list(y = pajbugs, z1 = w1, z2 = w2, n = as.numeric(ns), ns2 = ns2, l = length(ns2),
   kova = ko)
@@ -1052,7 +1053,9 @@ system.time({new3 <- jags(data = dei3, inits = inits32, parameters.to.save = par
   n.chains = 3, n.iter = 30000, n.thin = 10, DIC = TRUE) 
 })/60 
 
-new3$BUGSoutput$last.value
+new3$BUGSoutput$summary[6:76, 8] > 1.1
+str(geweke.diag(new3))
+geweke.diag(new3)$z[716:786]
 
 summary(new3$BUGSoutput$sims.list$beta1)
 sd(new3$BUGSoutput$sims.list$beta1)
@@ -1067,6 +1070,45 @@ sd(new3$BUGSoutput$sims.list$tauu)
 summary(new3$BUGSoutput$sims.list$lambda)
 sd(new3$BUGSoutput$sims.list$lambda)
 
+beta11 <- as.mcmc(new1$BUGSoutput$sims.list$beta1)
+beta12 <- as.mcmc(new2$BUGSoutput$sims.list$beta1)
+beta13 <- as.mcmc(new3$BUGSoutput$sims.list$beta1)
+beta21 <- as.mcmc(new1$BUGSoutput$sims.list$beta2)
+beta22 <- as.mcmc(new2$BUGSoutput$sims.list$beta2)
+beta23 <- as.mcmc(new3$BUGSoutput$sims.list$beta2)
+rho1 <- as.mcmc(new1$BUGSoutput$sims.list$rho)
+rho2 <- as.mcmc(new2$BUGSoutput$sims.list$rho)
+rho3 <- as.mcmc(new3$BUGSoutput$sims.list$rho)
+sigma1 <- as.mcmc(new1$BUGSoutput$sims.list$tau)
+sigma2 <- as.mcmc(new2$BUGSoutput$sims.list$tau)
+sigma3 <- as.mcmc(new3$BUGSoutput$sims.list$tau)
+sigmau1 <- as.mcmc(new1$BUGSoutput$sims.list$tauu)
+sigmau2 <- as.mcmc(new2$BUGSoutput$sims.list$tauu)
+sigmau3 <- as.mcmc(new3$BUGSoutput$sims.list$tauu)
+lambda2 <- as.mcmc(new2$BUGSoutput$sims.list$lambda)
+lambda3 <- as.mcmc(new3$BUGSoutput$sims.list$lambda)
+sigmav3 <- as.mcmc(new3$BUGSoutput$sims.list$sigmav)
+
+boa.hpd(sigmav3, 0.05)
+boa.hpd(beta11, 0.05)
+boa.hpd(beta12, 0.05)
+boa.hpd(beta13, 0.05)
+boa.hpd(beta21, 0.05)
+boa.hpd(beta22, 0.05)
+boa.hpd(beta23, 0.05)
+boa.hpd(rho1, 0.05)
+boa.hpd(rho2, 0.05)
+boa.hpd(rho3, 0.05)
+boa.hpd(sigma1, 0.05)
+boa.hpd(sigma2, 0.05)
+boa.hpd(sigma3, 0.05)
+boa.hpd(sigmau1, 0.05)
+boa.hpd(sigmau2, 0.05)
+boa.hpd(sigmau3, 0.05)
+boa.hpd(lambda2, 0.05)
+boa.hpd(lambda3, 0.05)
+
+#prognozƒós
 progn12 <- new1$BUGSoutput$sims.list$y 
 mr12 <- array(c(progn12), c(4500, 71, 10))
 dimnames(new1$BUGSoutput$sims.matrix)[[2]][1:8]
@@ -1135,20 +1177,79 @@ xtable(accuracy(dataProgn12$logy, dataProgn12$prognoze), digits = 5)
 xtable(accuracy(dataProgn22$logy, dataProgn22$prognoze), digits = 5)
 xtable(accuracy(dataProgn32$logy, dataProgn32$prognoze), digits = 5)
 
-#------------------------------------Ma˛osios sritys--------------------------------------------
+new1.mcmc <- as.mcmc(new1) 
+new2.mcmc <- as.mcmc(new2) 
+new3.mcmc <- as.mcmc(new3) 
+
+mcn1 <-  as.mcmc(list(new1.mcmc[[1]][, ynames], new1.mcmc[[2]][,ynames], 
+  new1.mcmc[[3]][, ynames]))
+mcn2 <-  as.mcmc(list(new2.mcmc[[1]][, ynames], new2.mcmc[[2]][,ynames], 
+  new2.mcmc[[3]][, ynames]))
+mcn3 <-  as.mcmc(list(new3.mcmc[[1]][, ynames], new3.mcmc[[2]][,ynames], 
+  new3.mcmc[[3]][, ynames]))
+
+ggs_caterpillar(list("1 modelis" = ggs(mcn1), 
+  "3 modelis" = ggs(mcn3)), horizontal = T) + 
+  theme_bw() + ylab("Prognozƒó") +
+  theme(axis.text.y = element_blank(), axis.ticks = element_blank())
+
+sd11 <- new1$BUGSoutput$sims.matrix[, dimnames(new1$BUGSoutput$sims.matrix)[[2]]%in%ynames]
+sd11 <- sd11[, match(ynames, colnames(sd11))]
+sd21 <- new2$BUGSoutput$sims.matrix[, dimnames(new2$BUGSoutput$sims.matrix)[[2]]%in%ynames]
+sd21 <- sd21[, match(ynames, colnames(sd21))]
+sd31 <- new3$BUGSoutput$sims.matrix[, dimnames(new3$BUGSoutput$sims.matrix)[[2]]%in%ynames]
+sd31 <- sd31[, match(ynames, colnames(sd31))]
+
+sdpr11 <- rep(0, 171)
+sdpr21 <- rep(0, 171)
+sdpr31 <- rep(0, 171)
+for(i in 1:171){
+  sdpr11[i] <- sd(sd11[,i])  
+  sdpr21[i] <- sd(sd21[,i])
+  sdpr31[i] <- sd(sd31[,i])
+}
+
+sddf1 <- data.frame(sd = c(sdpr11, sdpr21, sdpr31), 
+  Modelis = c(rep("1 modelis", 171), rep("2 modelis", 171), rep("3 modelis", 171)),
+  index = rep(1:171, 3))
+ggplot(sddf1, aes(x = index, y = sd, colour = Modelis)) + geom_line() + theme_bw() + 
+  ylab("Prognozƒó s dispersija") + xlab("Indeksas")  
+
+#------------------------------------Ma≈æosios sritys--------------------------------------------
 
 dataPan13 <- dataPan[grep("2013-12", dataPan$menesiai), ] 
 data2013 <- dataPan13[dataPan13$numeris %in% fns,] 
 ordered <- data2013[ with( data2013, order(veikla)) , ]
 vepr <- unique(ordered$veikla)  
 pop13 <- dataOut[dataOut$menesiai == "2013-12-01" & dataOut$veikla%in% vepr,] 
+pop13[pop13$veikla == 4651 & pop13$z > 31,]
+dataProgn3[dataProgn3$veikla == 4651 & dataProgn3$z > 31,]
+dataProgn3[dataProgn3$veikla == 4651,]
+
+nrow(pop13[pop13$veikla == 4777,])
+pop13[pop13$veikla == 4777 & pop13$z > 31,]
+dataProgn3[dataProgn3$veikla == 4777 & dataProgn3$z > 31,]
+dataProgn3[dataProgn3$veikla == 4777,]
+
+pop13[pop13$veikla == 4661 & pop13$apskritis == 10 & pop13$z >31,]
+dataProgn3[dataProgn3$veikla == 4661,]
+
+nrow(pop13[pop13$veikla == 4778,])
+pop13[pop13$veikla == 4778 & pop13$z > 31,]
+dataProgn3[dataProgn3$veikla == 4778 & dataProgn3$z > 31,]
+dataProgn3[dataProgn3$veikla == 4778,]
+
+nrow(pop13[pop13$veikla == 4772,])
+pop13[pop13$veikla == 4772 & pop13$z > 31,]
+dataProgn3[dataProgn3$veikla == 4772 & dataProgn3$z > 31,]
+dataProgn3[dataProgn3$veikla == 4772,]
 
 dens <- density(pop13$z)
 df <- data.frame(x = dens$x, y = dens$y)
 ggplot(df, aes(x, y)) + 
   geom_area(data = subset(df, x  >= 31), fill = "lightgreen") +
   geom_line() + theme_bw() + ylab("Tankis") + ggtitle("") + 
-  xlab("Darbuotoj¯  skaiË ius")
+  xlab("Darbuotoj≈≥  skaiƒç ius")
 
 veikl <- unique(pop13$veikla)
 mz <- rep(0, 71)
@@ -1156,16 +1257,16 @@ for(i in 1:71){
   mz[i] <- mean(pop13$z[pop13$veikla == veikl[i]])
 }
 dfr <- data.frame(mz)
-ggplot(dfr, aes(x = mz)) + geom_histogram(binwidth = 2.5) + theme_bw() + ylab("Da˛nis") +
-  xlab("Vidutinis darbuotoj¯  skaiË ius veikloje")
+ggplot(dfr, aes(x = mz)) + geom_histogram(binwidth = 2.5) + theme_bw() + ylab("Da≈ænis") +
+  xlab("Vidutinis darbuotoj≈≥  skaiƒç ius veikloje")
 
-library(xtable)
 xtable(table(pop13$apskritis))
  sort(c("alytus", "kaunas", "klaipeda", "marijampole", "panev", "siauliai", 
    "taurage", "telsiai", "utena", "vilnius")) 
-
+   
 #--------------------------------3 MODELIS----------------------------------------------
-#--------------------------------DidelÎs firmos----------------------------------------
+#--------------------------------Didelƒós firmos----------------------------------------
+
 maziduomD1 <- pop13[pop13$z > 31,]
 maziD1 <- maziduomD1[c("numeris", "veikla", "y")]
 mazunrD1 <- unique(maziD1$numeris)
@@ -1223,11 +1324,11 @@ lentaD1$imtis <- imt[sort(names(pop))]
 
 D1 <- data.frame(veikla = as.factor(c(lentaD1$veikla, lentaD1$veikla)),
   info = c(lentaD1$pop, lentaD1$imtis), kas = c(rep("populiacija", 56), rep("imtis", 56)))
-ggplot(D1, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da˛nis") + 
-  xlab("Firm¯  skaiË ius") + scale_fill_grey(start = 0.3, end = .6) + 
-  theme(legend.title = element_blank()) + ggtitle("DidelÎ s firmos")
+ggplot(D1, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da≈ænis") + 
+  xlab("Firm≈≥  skaiƒç ius") + scale_fill_grey(start = 0.3, end = .6) + 
+  theme(legend.title = element_blank()) + ggtitle("Didelƒó s firmos")
 
-#---------------------------Vilniaus didelÎs firmos-----------------------------------------
+#---------------------------Vilniaus didel√´s firmos-----------------------------------------
 
 maziduomVD1 <- pop13[pop13$z > 31 & pop13$apskritis == 10,]
 maziVD1 <- maziduomVD1[c("numeris", "veikla", "y")]
@@ -1286,11 +1387,11 @@ lentaVD1$imtis <- imtV[sort(names(popV))]
 
 D2 <- data.frame(veikla = as.factor(c(lentaVD1$veikla, lentaVD1$veikla)),
   info = c(lentaVD1$pop, lentaVD1$imtis), kas = c(rep("populiacija", 39), rep("imtis", 39)))
-ggplot(D2, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da˛nis") + 
-  xlab("Firm¯ skaiËius") + scale_fill_grey(start = 0.3, end = .6) + 
-  theme(legend.title = element_blank()) + ggtitle("Vilniaus didelÎ s firmos")
+ggplot(D2, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da≈ænis") + 
+  xlab("Firm≈≥ skaiƒçius") + scale_fill_grey(start = 0.3, end = .6) + 
+  theme(legend.title = element_blank()) + ggtitle("Vilniaus didelƒó s firmos")
 
-#------------------------Vilniaus ir Kauno didelÎs firmos------------------------------------
+#------------------------Vilniaus ir Kauno didelƒós firmos------------------------------------
 
 maziduomVKD1 <- pop13[pop13$z > 31 & pop13$apskritis%in%c(2, 10),]
 maziVKD1 <- maziduomVKD1[c("numeris", "veikla", "y")]
@@ -1347,11 +1448,11 @@ names(lentaVKD1) <- c("veikla", "pop")
 lentaVKD1$imtis <- imtVK[sort(names(popVK))]
 D3 <- data.frame(veikla = as.factor(c(lentaVKD1$veikla, lentaVKD1$veikla)),
   info = c(lentaVKD1$pop, lentaVKD1$imtis), kas = c(rep("populiacija", 47), rep("imtis", 47)))
-ggplot(D3, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da˛nis") + 
-  xlab("Firm¯  skaiË ius") + scale_fill_grey(start = 0.3, end = .6) + 
-  theme(legend.title = element_blank()) + ggtitle("Vilniaus ir Kauno didelÎ s firmos")
+ggplot(D3, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da≈ænis") + 
+  xlab("Firm≈≥  skaiƒç ius") + scale_fill_grey(start = 0.3, end = .6) + 
+  theme(legend.title = element_blank()) + ggtitle("Vilniaus ir Kauno didelƒó s firmos")
 
-#-----------------------------Kauno didelÎs firmos--------------------------------------
+#-----------------------------Kauno didelƒós firmos--------------------------------------
 
 maziduomKD1 <- pop13[pop13$z > 31 & pop13$apskritis == 2,]
 maziKD1 <- maziduomKD1[c("numeris", "veikla", "y")]
@@ -1408,11 +1509,11 @@ names(lentaK1) <- c("veikla", "pop")
 lentaK1$imtis <- imtK[sort(names(popK))]
 D4 <- data.frame(veikla = as.factor(c(lentaK1$veikla, lentaK1$veikla)),
   info = c(lentaK1$pop, lentaK1$imtis), kas = c(rep("populiacija", 33), rep("imtis", 33)))
-ggplot(D4, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da˛nis") + 
-  xlab("Firm¯  skaiË ius") + scale_fill_grey(start = 0.3, end = .6) + 
-  theme(legend.title = element_blank()) + ggtitle("Kauno didelÎ s firmos")
+ggplot(D4, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da≈ænis") + 
+  xlab("Firm≈≥  skaiƒç ius") + scale_fill_grey(start = 0.3, end = .6) + 
+  theme(legend.title = element_blank()) + ggtitle("Kauno didelƒó s firmos")
 
-#----------------------- KlaipÎdos, PanevÎ˛io ir –iauli¯ didelÎs firmos--------------------------
+#---------------------------- Klaipƒódos, Panevƒó≈æio ir ≈†iauli≈≥ didelƒós firmos ----------------------------------------------
 
 maziduomKPS1 <- pop13[pop13$z > 31 & pop13$apskritis%in%c(3, 5, 6),]
 maziKPS1 <- maziduomKPS1[c("numeris", "veikla", "y")]
@@ -1469,42 +1570,49 @@ names(lentaKPS1) <- c("veikla", "pop")
 lentaKPS1$imtis <- imtKPS[sort(names(popKPS))]
 D5 <- data.frame(veikla = as.factor(c(lentaKPS1$veikla, lentaKPS1$veikla)),
   info = c(lentaKPS1$pop, lentaKPS1$imtis), kas = c(rep("populiacija", 35), rep("imtis", 35)))
-ggplot(D5, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da˛nis") + 
-  xlab("Firm¯  skaiË ius") + scale_fill_grey(start = 0.3, end = .6) + 
-  theme(legend.title = element_blank()) + ggtitle("KlaipÎ dos, PanevÎ ˛io, –iauli¯  didelÎ s firmos")
+ggplot(D5, aes(info, fill = kas)) + geom_bar() + theme_bw() + ylab("Da≈ænis") + 
+  xlab("Firm≈≥  skaiƒç ius") + scale_fill_grey(start = 0.3, end = .6) + 
+  theme(legend.title = element_blank()) + ggtitle("Klaipƒó dos, Panevƒó ≈æio, ≈†iauli≈≥  didelƒó s firmos")
 
 #1 sritis
 sd(thetahatD3)/mean(thetahatD3)
+sd(sm1$thetaD1)/mean(sm1$thetaD1)
+sd(thetahatD3)
+
 summary(thetaD1)/summary(thetahatD3)
 mean(thetaD1/thetahatD3*100-100) #13.69422
 mean(abs(thetaD1/thetahatD3*100-100)) #45.92745
 
 #2 sritis
 sd(thetahatVD3)/mean(thetahatVD3)
+sd(thetahatVD3)
 summary(thetaVD1)/summary(thetahatVD3)
 mean(thetaVD1/thetahatVD3*100-100) #4.115098
 mean(abs(thetaVD1/thetahatVD3*100-100)) #50.45139
 
 #3 sritis
 sd(thetahatKD3)/mean(thetahatKD3)
+sd(thetahatKD3)
 summary(thetaKD1)/summary(thetahatKD3)
 mean(thetaKD1/thetahatKD3*100-100) #4.493751
 mean(abs(thetaKD1/thetahatKD3*100-100)) #56.6392
 
 #4 sritis
 sd(thetahatVKD3)/mean(thetahatVKD3)
+sd(thetahatVKD3)
 summary(thetaVKD1)/summary(thetahatVKD3)
 mean(thetaVKD1/thetahatVKD3*100-100) #17.88202
 mean(abs(thetaVKD1/thetahatVKD3*100-100)) #56.39683
 
 # 5 sritis
 sd(thetahatKPS3)/mean(thetahatKPS3)
+sd(thetahatKPS3)
 summary(thetaKPS1)/summary(thetahatKPS3)
 mean(thetaKPS1/thetahatKPS3*100-100) #5.230619
 mean(abs(thetaKPS1/thetahatKPS3*100-100)) #42.97497
 
 #---------------------------2 MODELIS--------------------------------------
-#--------------------------DidelÎs firmos----------------------------------
+#--------------------------Didelƒós firmos----------------------------------
 
 vevidD2 <- rep(0, length(veiklD1))
 for(i in 1:length(veiklD1)){
@@ -1541,9 +1649,10 @@ ggplot(data = san1, aes(x = idx, y = san, colour = mod)) + geom_line(size = 0.7)
   xlab("Veikla") + ylab("Santykis") + theme_bw() +
   scale_x_continuous(breaks = c(1:56), labels = c(as.character(veiklD1))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-  theme(legend.title = element_blank()) 
+  theme(legend.title = element_blank()) + 
+  geom_hline(aes(yintercept = 1), linetype = "dashed")   
 
-#--------------------------------Vilniaus didelÎs firmos------------------------------------
+#--------------------------------Vilniaus didelƒós firmos------------------------------------
 
 vevidVD2 <- rep(0, length(veiklVD1))
 for(i in 1:length(veiklVD1)){
@@ -1580,9 +1689,10 @@ ggplot(data = san2, aes(x = idx, y = san, colour = mod)) + geom_line(size = 0.7)
   xlab("Veikla") + ylab("Santykis") + theme_bw() +
   scale_x_continuous(breaks = c(1:39), labels = c(as.character(veiklVD1))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-  theme(legend.title = element_blank())  
+  theme(legend.title = element_blank()) + 
+  geom_hline(aes(yintercept = 1), linetype = "dashed") 
 
-#------------------------Vilniaus ir Kauno didelÎs firmos----------------------------
+#------------------------Vilniaus ir Kauno didelƒós firmos----------------------------
 
 vevidVKD2 <- rep(0, length(veiklVKD1))
 for(i in 1:length(veiklVKD1)){
@@ -1613,16 +1723,17 @@ ggplot(data = smdf3, aes(x = idx, y = th, colour = mod)) + geom_line(size = 0.7)
   scale_x_continuous(breaks = c(1:47), labels = c(as.character(veiklVKD1))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(legend.title = element_blank()) 
-
+  
 san3 <- data.frame(san = c(sm3$santykis2, sm3$santykis3), idx = rep(sm3$Indeksas, 2),
   mod = factor(c(rep("2 modelis", 47), rep("3 modelis", 47))))
 ggplot(data = san3, aes(x = idx, y = san, colour = mod)) + geom_line(size = 0.7) + 
   xlab("Veikla") + ylab("Santykis") + theme_bw() +
   scale_x_continuous(breaks = c(1:47), labels = c(as.character(veiklVKD1))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-  theme(legend.title = element_blank()) 
+  theme(legend.title = element_blank()) + 
+  geom_hline(aes(yintercept = 1), linetype = "dashed") 
 
-#----------------------------Kauno didelÎs firmos----------------------------
+#----------------------------Kauno didelƒós firmos----------------------------
 
 vevidKD2 <- rep(0, length(veiklKD1))
 for(i in 1:length(veiklKD1)){
@@ -1660,9 +1771,10 @@ ggplot(data = san4, aes(x = idx, y = san, colour = mod)) + geom_line(size = 0.7)
   xlab("Veikla") + ylab("Santykis") + theme_bw() +
   scale_x_continuous(breaks = c(1:33), labels = c(as.character(veiklKD1))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-  theme(legend.title = element_blank())  
-
-#------------------------KlaipÎdos, PanevÎ˛io ir –iauli¯ didelÎs firmos----------------------------
+  theme(legend.title = element_blank())+ 
+  geom_hline(aes(yintercept = 1), linetype = "dashed") 
+  
+#------------------------Klaipƒódos, Panevƒó≈æio ir ≈†iauli≈≥ didelƒós firmos----------------------------
 
 vevidKPS2 <- rep(0, length(veiklKPS1))
 for(i in 1:length(veiklKPS1)){
@@ -1700,7 +1812,8 @@ ggplot(data = san5, aes(x = idx, y = san, colour = mod)) + geom_line(size = 0.7)
   xlab("Veikla") + ylab("Santykis") + theme_bw() +
   scale_x_continuous(breaks = c(1:35), labels = c(as.character(veiklKPS1))) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-  theme(legend.title = element_blank())  
+  theme(legend.title = element_blank()) + 
+  geom_hline(aes(yintercept = 1), linetype = "dashed")
 
 #1 sritis
 sd(thetahatD2)/mean(thetahatD2)
