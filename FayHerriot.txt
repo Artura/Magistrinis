@@ -10,7 +10,6 @@ model {
 	tau <- 1/sigma
 	tauu <- 1/sigmau
 	
-	#LIKELIHOOD
 	for ( i in 1:71 ) {
 	v[i] ~ dnorm( 0, pow(sigmav, 2) )
 	
